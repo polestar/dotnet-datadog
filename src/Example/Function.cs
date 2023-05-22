@@ -32,6 +32,10 @@ public class Function : FunctionBase<Request, Result>
   private async Task Think()
   {
     var random = new Random();
-    await Task.Delay(random.Next(50, 1000));
+    var thinkingTime = random.Next(50, 1000);
+
+    Logger.LogInformation($"Need to think for {thinkingTime}ms");
+
+    await Task.Delay(thinkingTime);
   }
 }
