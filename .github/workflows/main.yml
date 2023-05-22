@@ -1,0 +1,48 @@
+name: main
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  id-token: write
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  package:
+    name: Package Projects
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+    strategy:
+      fail-fast: true
+      matrix:
+        project:
+          - ./src/Example
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Lambda Tools
+        run: dotnet tool install -g Amazon.Lambda.Tools
+
+      - name: Package Project
+        uses: ./.github/actions/package-project
+        with:
+          project-path: ${{ matrix.project }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Deploy
+        uses: ./.github/actions/deploy
+        with:
+          aws-region: eu-north-1
+          deploy-role-arn: ${{ secrets.DEPLOY_ROLE_ARN }}
+          datadog-api-key: ${{ secrets.DATADOG_API_KEY }}

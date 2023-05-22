@@ -1,0 +1,32 @@
+name: Package Project
+description: Package Lambda Project
+inputs:
+  project-path:
+    required: true
+    description: The path to the project to package
+
+runs:
+  using: composite
+  steps:
+    - name: Set Project Name
+      id: set-project-name
+      run: echo "project-name=$(basename ${{ inputs.project-path }})" >> $GITHUB_OUTPUT
+      shell: bash
+    - name: Package
+      run: |
+        dotnet lambda package \
+          --framework net6.0 \
+          --configuration Release \
+          --project-location ${{ inputs.project-path }} \
+          --function-architecture arm64 \
+          --output-package ${{ inputs.project-path }}/bin/release/net6.0/${{ steps.set-project-name.outputs.project-name }}.zip
+      shell: bash
+    - name: Upload Packages Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ github.run_id }}
+        ## Include serverless.yml to keep folder structure
+        path: |
+          ${{ inputs.project-path }}/bin/release/net6.0/${{ steps.set-project-name.outputs.project-name }}.zip
+          serverless.yml
+        retention-days: 1

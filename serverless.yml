@@ -1,0 +1,57 @@
+service: 'dotnet-datadog'
+frameworkVersion: '3'
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-plugin-datadog
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: eu-north-1
+  memorySize: 1024
+  timeout: 10
+  logRetentionInDays: 30
+  versionFunctions: false
+  stackName: ${self:service}
+  runtime: dotnet6
+  architecture: arm64
+  deploymentBucket:
+    blockPublicAccess: true
+    serverSideEncryption: AES256
+  # shared IAM statements for all lambdas
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - xray:PutTelemetryRecords
+            - xray:PutTraceSegments
+          Resource: '*'
+  tracing:
+    lambda: true
+    apiGateway: false
+
+custom:
+  awsLambda: 'arn:aws:lambda'
+  serverless-iam-roles-per-function:
+    defaultInherit: true
+  datadog:
+    site: datadoghq.eu
+    addLayers: true
+    apiKey: ${param:dataDogApiKey}
+
+functions:
+  Example:
+    handler: Example::DotnetDatadog.Example.Function::FunctionHandler
+    description: Instrumented Datadog Function
+    package:
+      artifact: src/Example/bin/release/net6.0/Example.zip
+    iamRoleStatementsName: ${self:service}-role-ExampleFunction
+    environment:
+      DOTNET_ENVIRONMENT: ${self:provider.stage}
+    events:
+      - httpApi: 'POST /example'

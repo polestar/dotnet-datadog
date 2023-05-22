@@ -1,0 +1,42 @@
+name: Deploy to Environment
+description: Deploy solution to specified environment
+inputs:
+  aws-region:
+    default: eu-north-1
+    description: The AWS region to deploy to
+  deploy-role-arn:
+    required: true
+    description: Tacthe name of the role to assume when configuring AWS credentials
+  datadog-api-key:
+    required: true
+    description: Datadog API Key
+
+runs:
+  using: composite
+  steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v3
+      id: download
+      with:
+        name: ${{ github.run_id }}
+        path: ./
+
+    ## OpenID Connect (OIDC) is used to perform deployment actions on AWS
+    ## To setup OIDC in the deployment account refer to https://polestarjira.atlassian.net/wiki/spaces/DE/pages/3459612992/GitHub+OIDC
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: ${{ inputs.aws-region }}
+        role-to-assume: ${{ inputs.deploy-role-arn }}
+        role-session-name: OIDCSession
+
+    - name: Install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install Dependencies
+      shell: bash
+      run: npm ci
+    - name: Deploy
+      run: npm run deploy -- --param="dataDogApiKey=${{ inputs.datadog-api-key }}"
+      shell: bash

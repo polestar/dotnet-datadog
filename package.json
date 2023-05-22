@@ -1,0 +1,13 @@
+{
+  "name": "dotnet-datadog",
+  "author": "Polestar",
+  "version": "1.0.0",
+  "scripts": {
+    "deploy": "sls deploy --verbose"
+  },
+  "devDependencies": {
+    "serverless": "^3.31.0",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-plugin-datadog": "^5.31.0"
+  }
+}

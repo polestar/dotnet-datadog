@@ -1,0 +1,16 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AmazonLambdaCoreVersion>2.1.0</AmazonLambdaCoreVersion>
+    <AmazonLambdaAPIGatewayEventsVersion>2.5.0</AmazonLambdaAPIGatewayEventsVersion>
+    <AmazonLambdaSerializationSystemTextJsonVersion>2.3.0</AmazonLambdaSerializationSystemTextJsonVersion>
+    <AWSLambdaPowertoolsLoggingVersion>0.0.2-preview</AWSLambdaPowertoolsLoggingVersion>
+    <AWSXRayRecorderCoreVersion>2.13.0</AWSXRayRecorderCoreVersion>
+    <AWSXRayRecorderHandlersAwsSdkVersion>2.11.0</AWSXRayRecorderHandlersAwsSdkVersion>
+  </PropertyGroup>
+
+</Project>
