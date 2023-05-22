@@ -1,6 +1,7 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using AWS.Lambda.Powertools.Logging;
+using Datadog.Trace.Annotations;
 using DotnetDatadog.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,13 +16,22 @@ public class Function : FunctionBase<Request, Result>
   }
 
   [Logging(LogEvent = true)]
-  public override Task<Result> Handler(
+  public override async Task<Result> Handler(
     Request request,
     ILambdaContext context)
   {
-    return Task.FromResult(new Result
+    await Think();
+
+    return new Result
     {
       Name = "Testing",
-    });
+    };
+  }
+
+  [Trace(OperationName = "example.do-heavy-thinking", ResourceName = "Example.Think")]
+  private async Task Think()
+  {
+    var random = new Random();
+    await Task.Delay(random.Next(50, 1000));
   }
 }

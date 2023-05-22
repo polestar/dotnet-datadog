@@ -19,6 +19,8 @@
     <PackageReference Include="AWSXRayRecorder.Core" Version="$(AWSXRayRecorderCoreVersion)" />
     <PackageReference Include="AWSXRayRecorder.Handlers.AwsSdk"
       Version="$(AWSXRayRecorderHandlersAwsSdkVersion)" />
+    <PackageReference Include="Datadog.Trace.Annotations"
+      Version="$(DatadogTraceAnnotationsVersion)" />
   </ItemGroup>
 
   <ItemGroup>

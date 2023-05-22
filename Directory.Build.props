@@ -11,6 +11,7 @@
     <AWSLambdaPowertoolsLoggingVersion>0.0.2-preview</AWSLambdaPowertoolsLoggingVersion>
     <AWSXRayRecorderCoreVersion>2.13.0</AWSXRayRecorderCoreVersion>
     <AWSXRayRecorderHandlersAwsSdkVersion>2.11.0</AWSXRayRecorderHandlersAwsSdkVersion>
+    <DatadogTraceAnnotationsVersion>1.0.0</DatadogTraceAnnotationsVersion>
   </PropertyGroup>
 
 </Project>

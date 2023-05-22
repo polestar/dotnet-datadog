@@ -52,6 +52,5 @@ functions:
     iamRoleStatementsName: ${self:service}-role-ExampleFunction
     environment:
       DOTNET_ENVIRONMENT: ${self:provider.stage}
-      DD_RUNTIME_METRICS_ENABLED: true
     events:
       - httpApi: 'POST /example'
