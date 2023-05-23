@@ -6,11 +6,11 @@
 
   <PropertyGroup>
     <AmazonLambdaCoreVersion>2.1.0</AmazonLambdaCoreVersion>
-    <AmazonLambdaAPIGatewayEventsVersion>2.5.0</AmazonLambdaAPIGatewayEventsVersion>
-    <AmazonLambdaSerializationSystemTextJsonVersion>2.3.0</AmazonLambdaSerializationSystemTextJsonVersion>
-    <AWSLambdaPowertoolsLoggingVersion>0.0.2-preview</AWSLambdaPowertoolsLoggingVersion>
-    <AWSXRayRecorderCoreVersion>2.13.0</AWSXRayRecorderCoreVersion>
-    <AWSXRayRecorderHandlersAwsSdkVersion>2.11.0</AWSXRayRecorderHandlersAwsSdkVersion>
+    <AmazonLambdaAPIGatewayEventsVersion>2.6.0</AmazonLambdaAPIGatewayEventsVersion>
+    <AmazonLambdaSerializationSystemTextJsonVersion>2.3.1</AmazonLambdaSerializationSystemTextJsonVersion>
+    <AWSLambdaPowertoolsLoggingVersion>1.1.0</AWSLambdaPowertoolsLoggingVersion>
+    <AWSXRayRecorderCoreVersion>2.14.0</AWSXRayRecorderCoreVersion>
+    <AWSXRayRecorderHandlersAwsSdkVersion>2.12.0</AWSXRayRecorderHandlersAwsSdkVersion>
     <DatadogTraceAnnotationsVersion>1.0.0</DatadogTraceAnnotationsVersion>
   </PropertyGroup>
 
