@@ -42,6 +42,7 @@ custom:
   datadog:
     site: datadoghq.eu
     apiKey: ${param:dataDogApiKey}
+    flushMetricsToLogs: false
 
 functions:
   Example:
