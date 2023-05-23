@@ -1,6 +1,7 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using AWS.Lambda.Powertools.Logging;
+using Datadog.Trace;
 using Datadog.Trace.Annotations;
 using DotnetDatadog.Shared;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,11 +32,17 @@ public class Function : FunctionBase<Request, Result>
   [Trace(OperationName = "example.do-heavy-thinking", ResourceName = "Example.Think")]
   private async Task Think()
   {
-    var random = new Random();
-    var thinkingTime = random.Next(50, 1000);
+    using (var scope = Tracer.Instance.StartActive("example.do-heavy-thinking-in-scope"))
+    {
+      scope.Span.ResourceName = "Example.ThinkInScope";
+      var random = new Random();
+      var thinkingTime = random.Next(50, 1000);
 
-    Logger.LogInformation($"Need to think for {thinkingTime}ms");
+      scope.Span.SetTag("thinking.time", $"{thinkingTime}ms");
 
-    await Task.Delay(thinkingTime);
+      Logger.LogInformation($"Need to think for {thinkingTime}ms");
+
+      await Task.Delay(thinkingTime);
+    }
   }
 }
