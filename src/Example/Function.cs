@@ -16,6 +16,7 @@ public class Function : FunctionBase<Request, Result>
   {
   }
 
+  [Trace]
   [Logging(LogEvent = true)]
   public override async Task<Result> Handler(
     Request request,
