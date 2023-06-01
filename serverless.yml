@@ -55,7 +55,7 @@ functions:
     events:
       - httpApi: 'POST /example'
   Example2:
-    handler: Example::DotnetDatadog.Example2.Function::FunctionHandler
+    handler: Example2::DotnetDatadog.Example2.Function::FunctionHandler
     description: Instrumented Datadog Function
     package:
       artifact: src/Example2/bin/release/net6.0/Example2.zip
