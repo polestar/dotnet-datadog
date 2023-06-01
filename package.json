@@ -8,6 +8,6 @@
   "devDependencies": {
     "serverless": "^3.31.0",
     "serverless-iam-roles-per-function": "^3.2.0",
-    "serverless-plugin-datadog": "^5.31.0"
+    "serverless-plugin-datadog": "^5.32.0"
   }
 }

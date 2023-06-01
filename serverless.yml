@@ -54,3 +54,13 @@ functions:
       DOTNET_ENVIRONMENT: ${self:provider.stage}
     events:
       - httpApi: 'POST /example'
+  Example2:
+    handler: Example::DotnetDatadog.Example2.Function::FunctionHandler
+    description: Instrumented Datadog Function
+    package:
+      artifact: src/Example2/bin/release/net6.0/Example2.zip
+    iamRoleStatementsName: ${self:service}-role-Example2Function
+    environment:
+      DOTNET_ENVIRONMENT: ${self:provider.stage}
+    events:
+      - httpApi: 'POST /example2'

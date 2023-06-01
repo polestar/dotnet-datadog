@@ -22,6 +22,7 @@ jobs:
       matrix:
         project:
           - ./src/Example
+          - ./src/Example2
     steps:
       - name: Checkout
         uses: actions/checkout@v3
