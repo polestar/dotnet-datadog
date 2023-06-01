@@ -13,7 +13,7 @@ namespace DotnetDatadog.Example2;
 
 public class Function
 {
-  // [Trace]
+  [Trace]
   [Logging(LogEvent = true)]
   public async Task<APIGatewayHttpApiV2ProxyResponse> FunctionHandler(
     Request request,
@@ -34,20 +34,20 @@ public class Function
     };
   }
 
-  // [Trace(OperationName = "example2.do-heavy-thinking", ResourceName = "Example2.Think")]
+  [Trace(OperationName = "example2.do-heavy-thinking", ResourceName = "Example2.Think")]
   private async Task Think()
   {
-    // using (var scope = Tracer.Instance.StartActive("example2.do-heavy-thinking-in-scope"))
-    // {
-      // scope.Span.ResourceName = "Example2.ThinkInScope";
+    using (var scope = Tracer.Instance.StartActive("example2.do-heavy-thinking-in-scope"))
+    {
+      scope.Span.ResourceName = "Example2.ThinkInScope";
       var random = new Random();
       var thinkingTime = random.Next(50, 1000);
 
-      // scope.Span.SetTag("thinking.time", $"{thinkingTime}ms");
+      scope.Span.SetTag("thinking.time", $"{thinkingTime}ms");
 
       Logger.LogInformation($"Need to think for {thinkingTime}ms");
 
       await Task.Delay(thinkingTime);
-    // }
+    }
   }
 }

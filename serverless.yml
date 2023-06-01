@@ -18,7 +18,7 @@ provider:
   versionFunctions: false
   stackName: ${self:service}
   runtime: dotnet6
-  architecture: arm64
+  # architecture: arm64
   deploymentBucket:
     blockPublicAccess: true
     serverSideEncryption: AES256

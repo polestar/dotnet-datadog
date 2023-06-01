@@ -18,7 +18,6 @@ runs:
           --framework net6.0 \
           --configuration Release \
           --project-location ${{ inputs.project-path }} \
-          --function-architecture arm64 \
           --output-package ${{ inputs.project-path }}/bin/release/net6.0/${{ steps.set-project-name.outputs.project-name }}.zip
       shell: bash
     - name: Upload Packages Artifact
