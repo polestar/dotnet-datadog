@@ -18,7 +18,7 @@ provider:
   versionFunctions: false
   stackName: ${self:service}
   runtime: dotnet6
-  # architecture: arm64
+  architecture: arm64
   deploymentBucket:
     blockPublicAccess: true
     serverSideEncryption: AES256
@@ -44,7 +44,7 @@ custom:
     apiKey: ${param:dataDogApiKey}
 
 functions:
-  Example:
+  ExampleArm64:
     handler: Example::DotnetDatadog.Example.Function::FunctionHandler
     description: Instrumented Datadog Function
     package:
@@ -54,7 +54,7 @@ functions:
       DOTNET_ENVIRONMENT: ${self:provider.stage}
     events:
       - httpApi: 'POST /example'
-  Example2:
+  Example2Arm64:
     handler: Example2::DotnetDatadog.Example2.Function::FunctionHandler
     description: Instrumented Datadog Function
     package:
